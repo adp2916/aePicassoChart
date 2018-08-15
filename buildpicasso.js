@@ -14,7 +14,7 @@ define(['jquery',
 
   //checkVersionNumbers
   var isVersionGreater = function(extVersion, checkVersion){
-    console.log("Check " + extVersion + " >= " + checkVersion);
+    //console.log("Check " + extVersion + " >= " + checkVersion);
     if(typeof extVersion == 'undefined') return false;
     var extV = extVersion.split(".");
     var cheV = checkVersion.split(".");
