@@ -8,13 +8,87 @@ define([
   function(qlik, properties, picasso, pq, bp) {
 
     picasso.use(pq)
-    //picasso.renderer.prio(["canvas"]);
+    picasso.renderer.prio(["canvas"]);
     console.log("Picasso Version: " + picasso.version);
     console.log("Picasso Designer Version: 0.2.3");
-    picasso.style = {
-      fontFamily: '"QlikView Sans", sans-serif'
-    };
 
+
+    var createPicassoWithStyle = function(self, layout, qTheme){
+      //Default Theme
+      var style = {
+        '$font-family': '"QlikView Sans", sans-serif',
+      };
+
+      //Font
+      try{
+        if(!layout.picassoprops.theme.fontauto){
+          style['$font-family'] = layout.picassoprops.theme.fontfamily;
+        }
+      }catch(err){
+
+      }
+
+      //Font Size
+      try{
+        if(!layout.picassoprops.theme.fontsizeauto){
+          if(typeof layout.picassoprops.theme.fontsize == 'undefined'){
+            //Set Nothing
+          }else{
+            style['$font-size'] = layout.picassoprops.theme.fontsize + "px";
+          }
+        }else{
+          if(qTheme != null) style['$font-size'] = qTheme.getStyle('fontSize','','');
+        }
+      }catch(err){
+        if(qTheme != null) style['$font-size'] = qTheme.getStyle('fontSize','','');
+      }
+
+      //Font Size Large
+      try{
+        if(!layout.picassoprops.theme.fontsizeauto){
+          if(typeof layout.picassoprops.theme.fontsizelarge == 'undefined'){
+            //Set Nothing
+          }else{
+            style['$font-size--l'] = layout.picassoprops.theme.fontsizelarge + "px";
+          }
+        }else{
+          if(qTheme != null) style['$font-size--l'] = qTheme.getStyle('object','legend.title','fontSize');
+        }
+      }catch(err){
+        if(qTheme != null) style['$font-size--l'] = qTheme.getStyle('object','legend.title','fontSize');
+      }
+
+      //Font Color
+      try{
+        if(!layout.picassoprops.theme.fontcolorauto){
+          if(typeof layout.picassoprops.theme.fontcolor == 'undefined'){
+            //Set Nothing
+          }else{
+            style['$font-color'] = layout.picassoprops.theme.fontcolor.color;
+          }
+        }else{
+          if(qTheme != null) style['$font-color'] = qTheme.getStyle('object','label.name','color');
+        }
+      }catch(err){
+        if(qTheme != null) style['$font-color'] = qTheme.getStyle('object','label.name','color');
+      }
+
+
+      if(qTheme != null){
+        //style['$font-color'] = qTheme.getStyle('object','label.name','color');
+
+        style['$guide-color'] = qTheme.getStyle('object','grid.line.major','color');
+        style['$shape'] = {fill:qTheme.getStyle('dataColors','','primaryColor'),
+                          strokeWidth:0,
+                          stroke:qTheme.getStyle('dataColors','','primaryColor')
+                        };
+      }
+      console.log(style);
+      self.pic = picasso({
+        renderer: { prio: ['canvas'] },
+        style:style
+      });
+    };
 
 
     var redrawChart = function($element, layout, self, first) {
@@ -38,9 +112,9 @@ define([
         /*** Having to recreate the chart as when updating the settings the line layer does not refresh (might be bug in picasso)
         /*****************************************************************************************************/
 
-        self.chart = picasso.chart({
+        self.chart = self.pic.chart({
           element: $element.find('.lrp')[0],
-          settings
+          settings:settings
         });
 
         self.chartBrush = bp.enableSelectionOnFirstDimension(self, self.chart, 'highlight', layout);
@@ -78,7 +152,7 @@ define([
       //console.log(size);
       if (getNewData) {
 
-        self.backendApi.getData([size]).then(qdp => {
+        self.backendApi.getData([size]).then(function(qdp){
           if (layout.qHyperCube.qDataPages.length > 1) {
             //Keep the latest qDataPages
             layout.qHyperCube.qDataPages.splice(0, layout.qHyperCube.qDataPages.length - 1);
@@ -122,6 +196,7 @@ define([
           scalesDef: [],
           reflines: [],
           cube: {},
+          theme:{},
           componentsDef: {
             axis: [],
             layers: []
@@ -146,8 +221,12 @@ define([
           if (layout.theme.id != qtheme.id || bp.props == null) {
             layout.theme = qtheme;
             bp.setProps(layout);
+            console.log(qtheme.getStyle('object','label.name','color'));
+            createPicassoWithStyle(self, layout, qtheme);
+
             redrawChart($element, layout, self, true);
             updateData(layout, self, true, true);
+
           }
 
         });
@@ -167,20 +246,30 @@ define([
           $element.empty();
           $element.html('<div class="lrp" style="height:100%;position:relative;"></div>');
 
-          self.chart = picasso.chart({
-            element: $element.find('.lrp')[0]
+          var style = {
+            '$font-family': '"QlikView Sans", sans-serif',
+            '$font-color': "#ff0000"
+          };
+
+          self.pic = picasso({
+            style:style
           });
+
+
+          /*self.chart = self.pic.chart({
+            element: $element.find('.lrp')[0]
+          });*/
           first = true;
 
 
         }
+        createPicassoWithStyle(self, layout, null);
+        redrawChart($element, layout, self, first);
+        updateData(layout, self, true);
 
-        //redrawChart($element, layout, self, first);
-        //updateData(layout, self, true);
 
 
-
-        return new Promise((resolve, reject) => {
+        return new Promise(function(resolve, reject){
           if (self.chartBrush.isActive) self.chartBrush.end();
           resolve(layout);
           self.chart.update({

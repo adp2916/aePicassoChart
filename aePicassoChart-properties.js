@@ -540,14 +540,16 @@ define(['./buildpicasso'], function(bp) {
               type: "boolean",
               ref: "legshow",
               label: "Show In Legend",
-              show:(y) => { return !~["pie","grid"].indexOf(y.layertype); }, //Not for pie and grid
+              show: (y) => {
+                return !~["pie", "grid"].indexOf(y.layertype);
+              }, //Not for pie and grid
               defaultValue: true
             },
             layertitle: {
               type: "string",
               ref: "layertitle",
               label: "Layer Title",
-              expression:"optional"
+              expression: "optional"
             },
             linetype: {
               type: "string",
@@ -954,43 +956,43 @@ define(['./buildpicasso'], function(bp) {
           items: {
             piepadangle: {
               type: "number",
-              component:"slider",
+              component: "slider",
               ref: "piepadangle",
               label: "Pad Angle",
               defaultValue: 0,
-              min:0,
-              max:0.05,
-              step:0.01
+              min: 0,
+              max: 0.05,
+              step: 0.01
             },
             pieouterradius: {
               type: "number",
-              component:"slider",
+              component: "slider",
               ref: "pieouterradius",
               label: "Outer Radius",
               defaultValue: 1,
-              min:0,
-              max:1,
-              step:0.1
+              min: 0,
+              max: 1,
+              step: 0.1
             },
             pieinnerradius: {
               type: "number",
-              component:"slider",
+              component: "slider",
               ref: "pieinnerradius",
               label: "Inner Radius",
               defaultValue: 0,
-              min:0,
-              max:1,
-              step:0.1
+              min: 0,
+              max: 1,
+              step: 0.1
             },
             piecornerradius: {
               type: "number",
-              component:"slider",
+              component: "slider",
               ref: "piecornerradius",
               label: "Corner Radius",
               defaultValue: 0,
-              min:0,
-              max:20,
-              step:1
+              min: 0,
+              max: 20,
+              step: 1
             },
           }
         },
@@ -1008,140 +1010,140 @@ define(['./buildpicasso'], function(bp) {
             },
             labelsize: {
               type: "number",
-              component:"slider",
+              component: "slider",
               ref: "labelsize",
               label: "Text Size",
               defaultValue: 13,
-              min:8,
-              max:30,
-              step:1
+              min: 8,
+              max: 30,
+              step: 1
             },
             intocolor: { //Pie Only
               type: "object",
-              show:(x) => {
+              show: (x) => {
                 return x.layertype == "pie"
               },
-              component:"color-picker",
+              component: "color-picker",
               ref: "labelintocolor",
               label: "Into - Fill Color",
               dualOutput: true,
-              defaultValue:{
-                index:2,
-                color:'#545352'
+              defaultValue: {
+                index: 2,
+                color: '#545352'
               }
             },
             insidejustify: {
-              show:(x) => {
+              show: (x) => {
                 return ~["box", "point"].indexOf(x.layertype)
               },
               type: "number",
-              component:"slider",
+              component: "slider",
               ref: "labelinsidejustify",
               label: "Inside - Justify",
               defaultValue: 0.5,
-              min:0,
-              max:1,
-              step:0.01
+              min: 0,
+              max: 1,
+              step: 0.01
             },
             insidealign: {
-              show:(x) => {
+              show: (x) => {
                 return ~["box", "point"].indexOf(x.layertype)
               },
               type: "number",
-              component:"slider",
+              component: "slider",
               ref: "labelinsidealign",
               label: "Inside - Align",
               defaultValue: 0.5,
-              min:0,
-              max:1,
-              step:0.01
+              min: 0,
+              max: 1,
+              step: 0.01
             },
             insidecolor: {
               type: "object",
-              component:"color-picker",
+              component: "color-picker",
               ref: "labelinsidecolor",
               label: "Inside - Fill Color",
               dualOutput: true,
-              defaultValue:{
-                index:10,
-                color:'#ffffff'
+              defaultValue: {
+                index: 10,
+                color: '#ffffff'
               }
             },
             outsidejustify: {
-              show:(x) => {
+              show: (x) => {
                 return ~["box", "point"].indexOf(x.layertype)
               },
               type: "number",
-              component:"slider",
+              component: "slider",
               ref: "labeloutsidejustify",
               label: "Outside - Justify",
               defaultValue: 0.5,
-              min:0,
-              max:1,
-              step:0.01
+              min: 0,
+              max: 1,
+              step: 0.01
             },
             outsidealign: {
-              show:(x) => {
+              show: (x) => {
                 return ~["box", "point"].indexOf(x.layertype)
               },
               type: "number",
-              component:"slider",
+              component: "slider",
               ref: "labeloutsidealign",
               label: "Outside - Align",
               defaultValue: 0.5,
-              min:0,
-              max:1,
-              step:0.01
+              min: 0,
+              max: 1,
+              step: 0.01
             },
             outsidecolor: {
               type: "object",
-              component:"color-picker",
+              component: "color-picker",
               ref: "labeloutsidecolor",
               label: "Outside - Fill Color",
               dualOutput: true,
-              defaultValue:{
-                index:2,
-                color:'#545352'
+              defaultValue: {
+                index: 2,
+                color: '#545352'
               }
             },
             oppositejustify: {
-              show:(x) => {
+              show: (x) => {
                 return ~["box", "point"].indexOf(x.layertype)
               },
               type: "number",
-              component:"slider",
+              component: "slider",
               ref: "labeloppositejustify",
               label: "Opposite - Justify",
               defaultValue: 0.5,
-              min:0,
-              max:1,
-              step:0.01
+              min: 0,
+              max: 1,
+              step: 0.01
             },
             oppositealign: {
-              show:(x) => {
+              show: (x) => {
                 return ~["box", "point"].indexOf(x.layertype)
               },
               type: "number",
-              component:"slider",
+              component: "slider",
               ref: "labeloppositealign",
               label: "Opposite - Align",
               defaultValue: 0.5,
-              min:0,
-              max:1,
-              step:0.01
+              min: 0,
+              max: 1,
+              step: 0.01
             },
             oppositecolor: {
-              show:(x) => {
+              show: (x) => {
                 return ~["box", "point"].indexOf(x.layertype)
               },
               type: "object",
-              component:"color-picker",
+              component: "color-picker",
               ref: "labeloppositecolor",
               label: "Opposite - Fill Color",
               dualOutput: true,
-              defaultValue:{
-                index:2,
-                color:'#545352'
+              defaultValue: {
+                index: 2,
+                color: '#545352'
               }
             },
           }
@@ -1212,20 +1214,20 @@ define(['./buildpicasso'], function(bp) {
                 labelPlacement: "bottom",
                 label: "Bubble Grid"
               },
-          /*    {
-                value: "area",
-                component: "icon-item",
-                icon: "ø",
-                labelPlacement: "bottom",
-                label: "Area"
-              },
-              {
-                value: "combo",
-                component: "icon-item",
-                icon: "˛",
-                labelPlacement: "bottom",
-                label: "Combo"
-              }*/
+              /*    {
+                    value: "area",
+                    component: "icon-item",
+                    icon: "ø",
+                    labelPlacement: "bottom",
+                    label: "Area"
+                  },
+                  {
+                    value: "combo",
+                    component: "icon-item",
+                    icon: "˛",
+                    labelPlacement: "bottom",
+                    label: "Combo"
+                  }*/
             ],
             change: (x, y) => {
               console.log(x.picassoprops.loadtemplate);
@@ -1255,7 +1257,9 @@ define(['./buildpicasso'], function(bp) {
             type: "string",
             component: "button",
             label: "Export Current Chart Spec",
-            show: (x) => {return x.picassoprops.enableexp},
+            show: (x) => {
+              return x.picassoprops.enableexp
+            },
             action: (x) => {
               console.log(x);
               bp.exportChart(x.picassoprops);
@@ -1295,7 +1299,7 @@ define(['./buildpicasso'], function(bp) {
                 component: "dropdown",
                 ref: "scalefield2",
                 label: "Field 2",
-                show:(x) => {
+                show: (x) => {
                   return ((x.scalefield != "") && (typeof x.scalefield != "undefined"));
                 },
                 options: (x, y) => {
@@ -1307,7 +1311,7 @@ define(['./buildpicasso'], function(bp) {
                 component: "dropdown",
                 ref: "scalefield3",
                 label: "Field 3",
-                show:(x) => {
+                show: (x) => {
                   return (((x.scalefield != "") && (typeof x.scalefield != "undefined")) && ((x.scalefield2 != "") && (typeof x.scalefield2 != "undefined")));
                 },
                 options: (x, y) => {
@@ -1423,7 +1427,7 @@ define(['./buildpicasso'], function(bp) {
                       value: "legend-layer",
                       label: "Layers",
                       tooltip: "Categorical Legend for All Layers"
-                    },{
+                    }, {
                       value: "legend-cat",
                       label: "Cat",
                       tooltip: "Categorical Legend"
@@ -1462,13 +1466,12 @@ define(['./buildpicasso'], function(bp) {
                       return bp.optionsListForScales(y.properties.picassoprops.scalesDef, 0);
                     }
                   }),
-                  axismode:{
+                  axismode: {
                     type: "string",
                     component: "dropdown",
                     ref: "axismode",
                     label: "Axis Mode",
-                    options: [
-                      {
+                    options: [{
                         value: "labels",
                         label: "Labels"
                       },
@@ -1520,6 +1523,56 @@ define(['./buildpicasso'], function(bp) {
                       return (a.axislabelmode == 'tilted');
                     }
                   },
+                  fontsection: {
+                    type: "items",
+                    items: {
+                      fontauto: {
+                        type: "boolean",
+                        component: "switch",
+                        label: "Title Font",
+                        ref: "axisfontauto",
+                        options: [{
+                          value: true,
+                          label: "Auto"
+                        }, {
+                          value: false,
+                          label: "Custom"
+                        }],
+                        defaultValue: true
+                      },
+                      fontfamily:{
+                        type:"string",
+                        label:"Font Family",
+                        ref:"axisfontfamily",
+                        defaultValue:'"QlikView Sans", sans-serif',
+                        show:(a) => {
+                          try{
+                            return !a.axisfontauto;
+                          }catch(err){
+                            return false;
+                          }
+                        }
+                      },
+                      fontsize:{
+                        type:"number",
+                        label:(a) => {return "Font Size ("+a.axisfontsize+"px)";},
+                        component:"slider",
+                        ref:"axisfontsize",
+                        defaultValue:13,
+                        min:6,
+                        max:24,
+                        step:1,
+                        show:(a) => {
+                          try{
+                            return !a.axisfontauto;
+                          }catch(err){
+                            return false;
+                          }
+
+                        }
+                      },
+                    }
+                  },
                 }
               },
               axisdock: {
@@ -1566,11 +1619,11 @@ define(['./buildpicasso'], function(bp) {
         uses: "sorting"
       },
       addons: {
-        uses:"addons",
-        items:{
-          datahandling:{
+        uses: "addons",
+        items: {
+          datahandling: {
             uses: "dataHandling",
-            items:{
+            items: {
               suppressZero: {
                 ref: "qHyperCubeDef.qSuppressZero",
               },
@@ -1582,111 +1635,255 @@ define(['./buildpicasso'], function(bp) {
           },
           refLines: {
             uses: "reflines",
-            show:false,
-            ref:"picassoprops.reflines",
-            items:{
-              test:{
-                type:"string",
-                component:"dropdown",
-                ref:"test",
-                label:"Axis",
-                options: (d,e) => {return e.properties.picassoprops.componentsDef.axis.filter(item => item.dockeditemtype == 'axis').map((item,index) => {return {value:"axis_"+index, label:item.axisscale + " (" + item.axisdock + ")"}});}
+            show: false,
+            ref: "picassoprops.reflines",
+            items: {
+              test: {
+                type: "string",
+                component: "dropdown",
+                ref: "test",
+                label: "Axis",
+                options: (d, e) => {
+                  return e.properties.picassoprops.componentsDef.axis.filter(item => item.dockeditemtype == 'axis').map((item, index) => {
+                    return {
+                      value: "axis_" + index,
+                      label: item.axisscale + " (" + item.axisdock + ")"
+                    }
+                  });
+                }
               }
             }
           },
-          hypercubeSize:{
+          hypercubeSize: {
             label: "Hypercube Size",
-            type:"items",
-            items:{
-              content:{
-                type:"items",
+            type: "items",
+            items: {
+              content: {
+                type: "items",
                 show: (d) => {
-                  var vc = bp.isVersionGreater(d.createdVersion,"0.2.2");
+                  var vc = bp.isVersionGreater(d.createdVersion, "0.2.2");
                   return vc;
                 },
-                items:{
-                  hqlimit:{
-                    type:"boolean",
-                    ref:"picassoprops.cube.limit",
-                    label:"Limit Cube Size",
-                    defaultValue:false
+                items: {
+                  hqlimit: {
+                    type: "boolean",
+                    ref: "picassoprops.cube.limit",
+                    label: "Limit Cube Size",
+                    defaultValue: false
                   },
-                  hqtop:{
-                    type:"number",
-                    ref:"picassoprops.cube.top",
-                    label:"Top",
-                    defaultValue:0
+                  hqtop: {
+                    type: "number",
+                    ref: "picassoprops.cube.top",
+                    label: "Top",
+                    defaultValue: 0
                   },
-                  hqleft:{
-                    type:"number",
-                    ref:"picassoprops.cube.left",
-                    label:"Left",
-                    defaultValue:0
+                  hqleft: {
+                    type: "number",
+                    ref: "picassoprops.cube.left",
+                    label: "Left",
+                    defaultValue: 0
                   },
-                  hqwidth:{
-                    type:"number",
-                    ref:"picassoprops.cube.width",
-                    label:"Width",
-                    defaultValue:0
+                  hqwidth: {
+                    type: "number",
+                    ref: "picassoprops.cube.width",
+                    label: "Width",
+                    defaultValue: 0
                   },
-                  hqheight:{
-                    type:"number",
-                    ref:"picassoprops.cube.height",
-                    label:"Height",
-                    defaultValue:0
+                  hqheight: {
+                    type: "number",
+                    ref: "picassoprops.cube.height",
+                    label: "Height",
+                    defaultValue: 0
                   },
                 }
               },
-              info:{
-                type:"string",
-                component:"text",
-                label:"These settings will only work on a new charts created after version 0.2.2",
+              info: {
+                type: "string",
+                component: "text",
+                label: "These settings will only work on a new charts created after version 0.2.2",
                 show: (d) => {
-                  var vc = bp.isVersionGreater(d.createdVersion,"0.2.2");
+                  var vc = bp.isVersionGreater(d.createdVersion, "0.2.2");
                   return !vc;
                 }
               },
             }
           }
         }
-			},
+      },
       appearance: {
         uses: "settings",
+        items: {
+          style: {
+            type: "items",
+            label: "Picasso Theme",
+            grouped: true,
+            items: {
+              about1: {
+                type: "string",
+                component: "text",
+                label: "Picasso will use the Qlik Sense theme where possible, Individual settings can be overwritten."
+              },
+              fontsection: {
+                type: "items",
+                items: {
+                  fontauto: {
+                    type: "boolean",
+                    component: "switch",
+                    label: "Font",
+                    ref: "picassoprops.theme.fontauto",
+                    options: [{
+                      value: true,
+                      label: "Auto"
+                    }, {
+                      value: false,
+                      label: "Custom"
+                    }],
+                    defaultValue: true
+                  },
+                  fontfamily:{
+                    type:"string",
+                    label:"Font Family",
+                    ref:"picassoprops.theme.fontfamily",
+                    defaultValue:'"QlikView Sans", sans-serif',
+                    show:(a) => {
+                      try{
+                        return !a.picassoprops.theme.fontauto;
+                      }catch(err){
+                        return false;
+                      }
+                    }
+                  }
+                }
+              },
+              fontsizesection: {
+                type: "items",
+                items: {
+                  fontauto: {
+                    type: "boolean",
+                    component: "switch",
+                    label: "Font Size",
+                    ref: "picassoprops.theme.fontsizeauto",
+                    options: [{
+                      value: true,
+                      label: "Auto"
+                    }, {
+                      value: false,
+                      label: "Custom"
+                    }],
+                    defaultValue: true
+                  },
+                  fontsize:{
+                    type:"number",
+                    label:(a) => {return "Font Size ("+a.picassoprops.theme.fontsize+"px)";},
+                    component:"slider",
+                    ref:"picassoprops.theme.fontsize",
+                    defaultValue:13,
+                    min:6,
+                    max:24,
+                    step:1,
+                    show:(a) => {
+                      try{
+                        return !a.picassoprops.theme.fontsizeauto;
+                      }catch(err){
+                        return false;
+                      }
+
+                    }
+                  },
+                  fontsizelarge:{
+                    type:"number",
+                    label:(a) => {return "Legend Title Font Size ("+a.picassoprops.theme.fontsizelarge+"px)";},
+                    component:"slider",
+                    ref:"picassoprops.theme.fontsizelarge",
+                    defaultValue:15,
+                    min:6,
+                    max:24,
+                    step:1,
+                    show:(a) => {
+                      try{
+                        return !a.picassoprops.theme.fontsizeauto;
+                      }catch(err){
+                        return false;
+                      }
+                    }
+                  }
+                }
+              },
+              fontcolorsection: {
+                type: "items",
+                items: {
+                  fontauto: {
+                    type: "boolean",
+                    component: "switch",
+                    label: "Font Color",
+                    ref: "picassoprops.theme.fontcolorauto",
+                    options: [{
+                      value: true,
+                      label: "Auto"
+                    }, {
+                      value: false,
+                      label: "Custom"
+                    }],
+                    defaultValue: true
+                  },
+                  fontcolor:{
+                    type:"object",
+                    label:"Font Color",
+                    ref:"picassoprops.theme.fontcolor",
+                    component: "color-picker",
+                    dualOutput: true,
+                    defaultValue: {
+                      index: 2,
+                    },
+                    show:(a) => {
+                      try{
+                        return !a.picassoprops.theme.fontcolorauto;
+                      }catch(err){
+                        return false;
+                      }
+
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       },
       about: {
         type: "items",
         label: "About",
         items: {
-          about1:{
-            type:"string",
-            component:"text",
-            label:"Steven Pressland 2018"
+          about1: {
+            type: "string",
+            component: "text",
+            label: "Steven Pressland 2018"
           },
-          about1a:{
-            type:"string",
-            component:"text",
-            label:"BETA: v0.2.3"
+          about1a: {
+            type: "string",
+            component: "text",
+            label: "BETA: v0.2.3"
           },
-          about2:{
-            type:"string",
-            component:"text",
-            label:"GitHub: www.github.com/analyticsearth"
+          about2: {
+            type: "string",
+            component: "text",
+            label: "GitHub: www.github.com/analyticsearth"
           },
-          about3:{
-            type:"string",
-            component:"text",
-            label:"Picasso Designer is an extension to aid building complex charts based on the Picasso.JS library without having to write any code or understand the picasso JSON structure. The extension also provides support for selections against the chart for the expected user experience in Qlik Sense."
+          about3: {
+            type: "string",
+            component: "text",
+            label: "Picasso Designer is an extension to aid building complex charts based on the Picasso.JS library without having to write any code or understand the picasso JSON structure. The extension also provides support for selections against the chart for the expected user experience in Qlik Sense."
           },
-          about4:{
-            type:"boolean",
-            label:"Enable Experimental Features",
-            ref:"picassoprops.enableexp",
-            defaultValue:"false"
+          about4: {
+            type: "boolean",
+            label: "Enable Experimental Features",
+            ref: "picassoprops.enableexp",
+            defaultValue: "false"
           }
         }
       },
     }
 
-};
+  };
 
 })

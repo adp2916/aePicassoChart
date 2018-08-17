@@ -25,7 +25,7 @@ define(['jquery',
 
   var colorForTheme = function(colorPickerObject){
     var theme = props.theme;
-    //console.log(theme);
+    console.log(theme);
     //console.log(colorPickerObject);
     if(theme != null){
       //Use Theme colors
@@ -186,11 +186,11 @@ define(['jquery',
   };
 
   //Create Components
-  var createComponents = function(picassoprops, hypercube) {
+  var createComponents = function(picassoprops, hypercube, theme) {
     var componentsArray = [];
     //Axis
     picassoprops.componentsDef.axis.forEach((axis) => {
-      componentsArray.push.apply(componentsArray, createDockedItem(axis, hypercube, picassoprops));
+      componentsArray.push.apply(componentsArray, createDockedItem(axis, hypercube, picassoprops, theme));
     });
 
     //Layers
@@ -211,9 +211,9 @@ define(['jquery',
     return notbrush.concat(brush);
   };
 
-  var createDockedItem = function(dockDef, hypercube, picassoprops) {
+  var createDockedItem = function(dockDef, hypercube, picassoprops, theme) {
     if (dockDef.dockeditemtype == "axis") {
-      return createAxis(dockDef, hypercube, picassoprops.scalesDef);
+      return createAxis(dockDef, hypercube, picassoprops.scalesDef, theme);
     }
     if (dockDef.dockeditemtype == "legend") {
       return createLegend(dockDef, hypercube, picassoprops);
@@ -221,7 +221,7 @@ define(['jquery',
   }
 
   //Axis Component - Note this creates two picasso components
-  var createAxis = function(axisDef, hypercube, scalesDef) {
+  var createAxis = function(axisDef, hypercube, scalesDef, theme) {
     var scaleIndex = scalesDef.map(e => e.scalename).indexOf(axisDef.axisscale);
 
     var titleShow = true;
@@ -248,16 +248,52 @@ define(['jquery',
       if(axisFieldDef == "") return null;
       var dimMes = axisFieldDef.split("/");
 
+
+      //Get The Style Settings for the AXIS Title
+      var qTheme = theme;
+      //Font Size
+      var fontSize = '13px';
+      try{
+        if(!axisDef.axisfontauto){
+          if(typeof axisDef.axisfontsize == 'undefined'){
+            //Set Nothing
+          }else{
+            fontSize = axisDef.axisfontsize + "px";
+          }
+        }else{
+          if(qTheme != null) fontSize = qTheme.getStyle('object','axis.title','fontSize');
+        }
+      }catch(err){
+        if(qTheme != null) fontSize = qTheme.getStyle('object','axis.title','fontSize');
+      }
+
+      var fontFamily = '"QlikView Sans", sans-serif';
+
+      try{
+        if(!axisDef.axisfontauto){
+          if(typeof axisDef.axisfontfamily == 'undefined'){
+            //Set Nothing
+          }else{
+            fontFamily = axisDef.axisfontfamily;
+          }
+        }
+      }catch(err){
+
+      }
+
+
       var axisTitle = {
         type: 'text',
-        text: hypercube[dimMes[0]][dimMes[1]].qFallbackTitle,
+        /*text: hypercube[dimMes[0]][dimMes[1]].qFallbackTitle,*/
+        scale:axisDef.axisscale,
         displayOrder:1,
         show:titleShow,
         style: {
           text: {
-            fontSize: '13px',
-            fontFamily: '"QlikView Sans", sans-serif'
-          }
+            fontSize: fontSize,
+            fontFamily: fontFamily
+          },
+          fill:"#ff0000"
         },
         dock: axisDef.axisdock
       };
